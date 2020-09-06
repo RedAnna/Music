@@ -1,32 +1,78 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
+    <headTop />
+    <router-view @iplay="getp"></router-view>
+    <playTab :isplay="isp" :id="id" :aid="aid" :isgdd="isgd" :allSong="allId"/>
   </div>
 </template>
 
+<script>
+import index from "../src/views/index.vue";
+import headTop from "components/headTop";
+import playTab from "components/playTab";
+
+export default {
+  name: "app",
+  data(){
+    return {
+      id: 0,
+      isp: false,
+      aid: 0,
+      isgd: false,
+      allId:[],
+    }
+  },
+  components: {
+    index,
+    headTop,
+    playTab,
+  },
+  methods:{
+    getp(data){
+      this.id = data.id
+      this.isp = data.isplay
+      this.aid = data.aid
+      this.isgd = data.isgd
+      this.allId = data.songsId
+    }
+  }
+};
+</script>
+
 <style>
+* {
+  margin: 0;
+  padding: 0;
+}
+li {
+  list-style: none;
+}
+a {
+  text-decoration: none;
+}
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+  height: 100vh;
+  width: 100vw;
+  font-size: 16px;
+  background: linear-gradient(to bottom, #5555ff 30%, #55fd55 100%);
+}
+@media screen and (min-width: 400px) {
+  #app {
+    height: 100vh;
+    width: 100vw;
+    font-size: 16px;
+    background: linear-gradient(to bottom, #5555ff 30%, #55fd55 100%);
+  }
 }
 
-#nav {
-  padding: 30px;
+.scroll::-webkit-scrollbar {
+  display: none; /* Chrome Safari */
 }
 
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
+.scroll {
+  scrollbar-width: none; /* firefox */
+  -ms-overflow-style: none; /* IE 10+ */
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 </style>
